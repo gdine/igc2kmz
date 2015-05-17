@@ -1,4 +1,4 @@
-#   igc2kmz.py  igc2kmz GPX module
+# igc2kmz.py  igc2kmz GPX module
 #   Copyright (C) 2008  Tom Payne
 #
 #   This program is free software: you can redistribute it and/or modify
@@ -18,6 +18,7 @@
 from datetime import datetime
 import math
 import re
+
 try:
     from xml.etree.cElementTree import parse
 except ImportError:
@@ -32,7 +33,6 @@ GPX_DATETIME_FORMAT = '%Y-%m-%dT%H:%M:%SZ'
 
 
 class gpx_tag(object):
-
     def __init__(self, tb):
         self.tb = tb
 
@@ -52,7 +52,6 @@ class gpx_tag(object):
 
 
 class GPX(object):
-
     def __init__(self, file):
         try:
             self.filename = file.name
@@ -65,7 +64,7 @@ class GPX(object):
         time_tag_name = '{%s}time' % namespace
         self.coords = []
         for trkpt in element.findall('/{%s}trk/{%s}trkseg/{%s}trkpt'
-                                     % (namespace, namespace, namespace)):
+                % (namespace, namespace, namespace)):
             lat = math.pi * float(trkpt.get('lat')) / 180.0
             lon = math.pi * float(trkpt.get('lon')) / 180.0
             ele_tag = trkpt.find(ele_tag_name)

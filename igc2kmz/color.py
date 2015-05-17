@@ -1,4 +1,4 @@
-#   igc2kmz color functions
+# igc2kmz color functions
 #   Copyright (C) 2008  Tom Payne
 #
 #   This program is free software: you can redistribute it and/or modify
@@ -17,6 +17,7 @@
 
 def hsl_to_rgba(hsl, a=1.0):
     """Convert a HSL tuple into a RGBA tuple."""
+
     def h_to_value(p, q, t):
         if t < 0.0:
             t += 1.0
@@ -30,6 +31,7 @@ def hsl_to_rgba(hsl, a=1.0):
             return p + 6.0 * (q - p) * (2.0 / 3.0 - t)
         else:
             return p
+
     h, s, l = hsl
     if s == 0:
         return (l, l, l, a)

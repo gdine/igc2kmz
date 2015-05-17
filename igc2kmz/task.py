@@ -1,4 +1,4 @@
-#   igc2kmz competition task functions
+# igc2kmz competition task functions
 #   Copyright (C) 2008  Tom Payne
 #
 #   This program is free software: you can redistribute it and/or modify
@@ -19,6 +19,7 @@
 
 import datetime
 import re
+
 try:
     from xml.etree.cElementTree import ElementTree, TreeBuilder, parse
 except ImportError:
@@ -30,7 +31,6 @@ from .gpx import GPX_DATETIME_FORMAT
 
 
 class Turnpoint(object):
-
     def __init__(self, name, coord, radius=400, enter=True, desc=None):
         self.name = name
         self.coord = coord
@@ -104,7 +104,6 @@ class Turnpoint(object):
 
 
 class Task(object):
-
     def __init__(self, name, tps):
         self.name = name
         self.tps = tps

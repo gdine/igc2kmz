@@ -1,4 +1,4 @@
-#   igc2kmz photo functions
+# igc2kmz photo functions
 #   Copyright (C) 2008  Tom Payne
 #
 #   This program is free software: you can redistribute it and/or modify
@@ -17,7 +17,9 @@
 
 import datetime
 import os.path
-import urllib.request, urllib.error, urllib.parse
+import urllib.request
+import urllib.error
+import urllib.parse
 import urllib.parse
 
 from .coord import Coord
@@ -25,7 +27,6 @@ from . import exif
 
 
 class Photo(object):
-
     def __init__(self, url, path=None):
         self.url = url
         components = urllib.parse.urlparse(self.url)
@@ -33,7 +34,7 @@ class Photo(object):
         if path:
             file = open(path)
         else:
-            file = urllib.request.urlopen(self.url) 
+            file = urllib.request.urlopen(self.url)
             if file.info().typeheader != 'image/jpeg':
                 raise RuntimeError('%s: not an image/jpeg' % self.url)
         self.jpeg = exif.JPEG(file)

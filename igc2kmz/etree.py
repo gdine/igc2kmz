@@ -1,4 +1,4 @@
-#   igc2kmz ElementTree functions
+# igc2kmz ElementTree functions
 #   Copyright (C) 2008  Tom Payne
 #
 #   This program is free software: you can redistribute it and/or modify
@@ -16,7 +16,6 @@
 
 
 class tag(object):
-
     def __init__(self, tb, name, attrs={}):
         self.tb = tb
         self.name = name

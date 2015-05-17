@@ -1,4 +1,4 @@
-#   igc2kmz cross country functions
+# igc2kmz cross country functions
 #   Copyright (C) 2008  Tom Payne
 #
 #   This program is free software: you can redistribute it and/or modify
@@ -19,6 +19,7 @@
 
 from datetime import datetime
 import re
+
 try:
     from xml.etree.cElementTree import ElementTree, parse
 except ImportError:
@@ -30,7 +31,6 @@ from .gpx import GPX_DATETIME_FORMAT
 
 
 class Turnpoint(object):
-
     def __init__(self, name, coord):
         self.name = name
         self.coord = coord
@@ -62,7 +62,6 @@ class Turnpoint(object):
 
 
 class Route(object):
-
     def __init__(self, name, league, distance, multiplier, score, circuit, tps):
         self.name = name
         self.league = league
@@ -111,7 +110,6 @@ class Route(object):
 
 
 class XC(object):
-
     def __init__(self, routes):
         self.routes = routes
 

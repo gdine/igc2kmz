@@ -1,4 +1,4 @@
-#   igc2kmz EXIF functions
+# igc2kmz EXIF functions
 #   Copyright (C) 2008  Tom Payne
 #
 #   This program is free software: you can redistribute it and/or modify
@@ -32,23 +32,23 @@ UNDEFINED = 7
 SLONG = 9
 SRATIONAL = 10
 DATA_TYPE_LENGTH = {
-        BYTE: 1,
-        ASCII: 1,
-        SHORT: 2,
-        LONG: 4,
-        RATIONAL: 8,
-        UNDEFINED: 1,
-        SLONG: 4,
-        SRATIONAL: 8}
+    BYTE: 1,
+    ASCII: 1,
+    SHORT: 2,
+    LONG: 4,
+    RATIONAL: 8,
+    UNDEFINED: 1,
+    SLONG: 4,
+    SRATIONAL: 8}
 DATA_TYPE_FORMAT = {
-        BYTE: 'B',
-        ASCII: 'c',
-        SHORT: 'H',
-        LONG: 'L',
-        RATIONAL: 'L',
-        UNDEFINED: 'B',
-        SLONG: 'l',
-        SRATIONAL: 'l'}
+    BYTE: 'B',
+    ASCII: 'c',
+    SHORT: 'H',
+    LONG: 'L',
+    RATIONAL: 'L',
+    UNDEFINED: 'B',
+    SLONG: 'l',
+    SRATIONAL: 'l'}
 
 
 class SyntaxError(RuntimeError):
@@ -56,13 +56,12 @@ class SyntaxError(RuntimeError):
 
 
 class TIFF(object):
-
     def __init__(self, data):
         self.data = data
         self.byte_order, = struct.unpack('=H', self.data[0:2])
         if not self.byte_order in BYTE_ORDER_CHAR:
             raise SyntaxError('Unsupported byte order %s' \
-                               % repr(self.data[6:8]))
+                              % repr(self.data[6:8]))
         self.byte_order_char = BYTE_ORDER_CHAR[self.byte_order]
         self.version, self.first_ifd_offset = \
             struct.unpack(self.byte_order_char + 'HL', self.data[2:8])
@@ -149,7 +148,7 @@ TAGS = {
     0x0131: 'Software',
     0x0138: 'Artist',
     0x8298: 'Copyright',
-    }
+}
 
 EXIF_IFD_TAGS = {
     0x9000: 'ExifVersion',
@@ -208,7 +207,7 @@ EXIF_IFD_TAGS = {
     0xa40b: 'DeviceSettingDescription',
     0xa40c: 'SubjectDistanceRange',
     0xa420: 'ImageUniqueID',
-    }
+}
 
 GPS_INFO_IFD_TAGS = {
     0x0000: 'GPSVersionID',
@@ -242,7 +241,7 @@ GPS_INFO_IFD_TAGS = {
     0x001c: 'GPSAreaInformation',
     0x001d: 'GPSDateStamp',
     0x001e: 'GPSDifferential',
-    }
+}
 
 INTEROPERABILITY_INFO_IFD_TAGS = {
     0x0001: 'InteroperabilityIndex',
@@ -301,7 +300,6 @@ SOF2 = 0xffc2
 
 
 class JPEG(object):
-
     def __init__(self, file):
         self.exif = {}
         self.height = self.width = None

@@ -1,4 +1,4 @@
-#   igc2kmz KML functions
+# igc2kmz KML functions
 #   Copyright (C) 2008  Tom Payne
 #
 #   This program is free software: you can redistribute it and/or modify
@@ -22,7 +22,6 @@ class_by_name = {}
 
 
 class Metaclass(type):
-
     def __new__(cls, name, bases, dct):
         result = type.__new__(cls, name, bases, dct)
         if not name.startswith('_'):
@@ -44,7 +43,7 @@ class _Element(object, metaclass=Metaclass):
     def url(self):
         """Return a URL referring to self."""
         return '#%s' % self.id()
-    
+
     def write(self, file):
         """Write self to file."""
         file.write(str(self))
@@ -128,7 +127,6 @@ class _CompoundElement(_Element):
 
 
 class Verbatim(_Element):
-
     def __init__(self, value):
         self.value = value
 
@@ -160,15 +158,24 @@ class dateTime(object):
 
 
 class altitude(_SimpleElement): pass
+
+
 class altitudeMode(_SimpleElement): pass
+
+
 class BalloonStyle(_CompoundElement): pass
+
+
 class begin(_SimpleElement): pass
+
+
 class bgColor(_SimpleElement): pass
+
+
 class Camera(_CompoundElement): pass
 
 
 class color(_SimpleElement):
-
     def __init__(self, rgba):
         if isinstance(rgba, tuple):
             r, g, b, a = rgba
@@ -177,7 +184,6 @@ class color(_SimpleElement):
 
 
 class coordinates(_SimpleElement):
-
     def __init__(self, coords):
         texts = ('%f,%f,%d' % (c.lon_deg, c.lat_deg, c.ele) for c in coords)
         _SimpleElement.__init__(self, ' '.join(texts))
@@ -196,7 +202,7 @@ class coordinates(_SimpleElement):
     @classmethod
     def arc(cls, center, radius, start, stop, error=0.1):
         delta_theta = 2 * pi / int(ceil(pi / acos((radius - error)
-                                   / (radius + error))))
+                                                  / (radius + error))))
         while start < 0:
             start += 2 * pi
             stop += 2 * pi
@@ -212,32 +218,39 @@ class coordinates(_SimpleElement):
 
 
 class Data(_CompoundElement):
-
     def __init__(self, name, *args, **kwargs):
         _CompoundElement.__init__(self, *args, **kwargs)
         self.add_attrs(name=name)
 
 
 class description(_SimpleElement): pass
+
+
 class Document(_CompoundElement): pass
+
+
 class end(_SimpleElement): pass
 
 
 class ExtendedData(_CompoundElement):
-
     @classmethod
     def dict(cls, dict):
         return cls(*[Data(key, value=value) for key, value in list(dict.items())])
 
 
 class extrude(_SimpleElement): pass
+
+
 class Folder(_CompoundElement): pass
+
+
 class heading(_SimpleElement): pass
+
+
 class href(_SimpleElement): pass
 
 
 class Icon(_CompoundElement):
-
     @classmethod
     def character(cls, c, extra=''):
         if ord('1') <= ord(c) <= ord('9'):
@@ -275,7 +288,6 @@ class IconStyle(_CompoundElement): pass
 
 
 class kml(_CompoundElement):
-
     def __init__(self, version, *args, **kwargs):
         _CompoundElement.__init__(self, *args, **kwargs)
         self.add_attrs(xmlns='http://earth.google.com/kml/%s' % version)
@@ -287,42 +299,95 @@ class kml(_CompoundElement):
 
 
 class LabelStyle(_CompoundElement): pass
+
+
 class latitude(_SimpleElement): pass
+
+
 class LineString(_CompoundElement): pass
+
+
 class LineStyle(_CompoundElement): pass
+
+
 class ListStyle(_CompoundElement): pass
+
+
 class listItemType(_SimpleElement): pass
+
+
 class longitude(_SimpleElement): pass
+
+
 class MultiGeometry(_CompoundElement): pass
+
+
 class name(_SimpleElement): pass
+
+
 class open(_SimpleElement): pass
+
+
 class overlayXY(_SimpleElement): pass
+
+
 class Placemark(_CompoundElement): pass
+
+
 class Point(_CompoundElement): pass
+
+
 class PolyStyle(_CompoundElement): pass
+
+
 class roll(_SimpleElement): pass
+
+
 class scale(_SimpleElement): pass
+
+
 class ScreenOverlay(_CompoundElement): pass
+
+
 class screenXY(_SimpleElement): pass
+
+
 class size(_SimpleElement): pass
+
+
 class Snippet(_SimpleElement): pass
 
 
 class Style(_CompoundElement):
-
     def __init__(self, *args, **kwargs):
         _CompoundElement.__init__(self, *args, **kwargs)
         self.add_attrs(id=self.id())
 
 
 class styleUrl(_SimpleElement): pass
+
+
 class tessellate(_SimpleElement): pass
+
+
 class text(_SimpleElement): pass
+
+
 class tilt(_SimpleElement): pass
+
+
 class TimeSpan(_CompoundElement): pass
+
+
 class value(_SimpleElement): pass
+
+
 class visibility(_SimpleElement): pass
+
+
 class when(_SimpleElement): pass
+
+
 class width(_SimpleElement): pass
 
 

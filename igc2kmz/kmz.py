@@ -1,4 +1,4 @@
-#   igc2kmz KMZ functions
+# igc2kmz KMZ functions
 #   Copyright (C) 2008  Tom Payne
 #
 #   This program is free software: you can redistribute it and/or modify
@@ -16,6 +16,7 @@
 
 
 import datetime
+
 try:
     from io import StringIO
 except ImportError:
@@ -26,7 +27,6 @@ from . import kml
 
 
 class kmz(object):
-
     def __init__(self, *elements):
         self.elements = list(elements)
         self.roots = []

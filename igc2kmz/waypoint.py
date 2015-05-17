@@ -1,4 +1,4 @@
-#   igc2kmz waypoint functions
+# igc2kmz waypoint functions
 #   Copyright (C) 2010  Tom Payne
 #
 #   This program is free software: you can redistribute it and/or modify
@@ -21,7 +21,6 @@ from .coord import Coord
 
 
 class Waypoint(Coord):
-
     def __init__(self, name, lat, lon, ele, description=None):
         Coord.__init__(self, lat, lon, ele)
         self.name = name

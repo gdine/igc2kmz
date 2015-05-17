@@ -1,4 +1,4 @@
-#   igc2kmz scale functions
+# igc2kmz scale functions
 #   Copyright (C) 2008  Tom Payne
 #
 #   This program is free software: you can redistribute it and/or modify
@@ -30,12 +30,14 @@ class Scale(object):
         self.range = range
         self.title = title
         self.gradient = gradient
+
         def steps(step=None):
             while True:
                 yield step
                 yield 2 * step
                 yield 5 * step
                 step *= 10
+
         if step:
             for step in steps(step):
                 lower = int(self.range[0] / step)
@@ -99,7 +101,6 @@ class ZeroCenteredScale(Scale):
 
 
 class TimeScale(Scale):
-
     def __init__(self, range, title=None, gradient=None, step=1,
                  max_divisions=16, tz_offset=datetime.timedelta(0, 0)):
         def steps(step=None):
@@ -107,8 +108,9 @@ class TimeScale(Scale):
                      5 * 60, 15 * 60, 30 * 60,
                      3600, 3 * 3600, 6 * 3600, 12 * 3600]
             return map(lambda s: datetime.timedelta(0, s),
-                                  itertools.dropwhile(lambda s: s < step,
-                                                      steps))
+                       itertools.dropwhile(lambda s: s < step,
+                                           steps))
+
         lower, upper = range
         if step:
             for step in steps(step):

@@ -1,4 +1,4 @@
-#   igc2kmz main module
+# igc2kmz main module
 #   Copyright (C) 2008  Tom Payne
 #
 #   This program is free software: you can redistribute it and/or modify
@@ -56,7 +56,6 @@ def make_table(rows, bgcolors='#dddddd #ffffff'.split()):
 
 
 class Stock(object):
-
     def make_none_folder(self, visibility):
         icon = kml.Icon(href=self.pixel_url)
         overlay_xy = kml.overlayXY(x=0, xunits='fraction',
@@ -95,53 +94,53 @@ class Stock(object):
         #
         bgcolors = '#ffcccc #ffdddd'.split()
         rows = [
-                ['Altitude gain', '$[altitude_change]m'],
-                ['Average climb', '$[average_climb]m/s'],
-                ['Maximum climb', '$[maximum_climb]m/s'],
-                ['Peak climb', '$[peak_climb]m/s'],
-                ['Efficiency', '$[efficiency]%'],
-                ['Start altitude', '$[start_altitude]m'],
-                ['Finish altitude', '$[finish_altitude]m'],
-                ['Start time', '$[start_time]'],
-                ['Finish time', '$[finish_time]'],
-                ['Duration', '$[duration]'],
-                ['Accumulated altitude gain', '$[accumulated_altitude_gain]m'],
-                ['Accumulated altitude loss', '$[accumulated_altitude_loss]m'],
-                ['Drift', '$[average_speed]km/h $[drift_direction]'],
-                ]
+            ['Altitude gain', '$[altitude_change]m'],
+            ['Average climb', '$[average_climb]m/s'],
+            ['Maximum climb', '$[maximum_climb]m/s'],
+            ['Peak climb', '$[peak_climb]m/s'],
+            ['Efficiency', '$[efficiency]%'],
+            ['Start altitude', '$[start_altitude]m'],
+            ['Finish altitude', '$[finish_altitude]m'],
+            ['Start time', '$[start_time]'],
+            ['Finish time', '$[finish_time]'],
+            ['Duration', '$[duration]'],
+            ['Accumulated altitude gain', '$[accumulated_altitude_gain]m'],
+            ['Accumulated altitude loss', '$[accumulated_altitude_loss]m'],
+            ['Drift', '$[average_speed]km/h $[drift_direction]'],
+        ]
         self.thermal_style = self.make_analysis_style('cc3333ff', bgcolors,
                                                       rows)
         self.kmz.add_roots(self.thermal_style)
         bgcolors = '#ccccff #ddddff'.split()
         rows = [
-                ['Altitude change', '$[altitude_change]m'],
-                ['Average descent', '$[average_climb]m/s'],
-                ['Maximum descent', '$[maximum_descent]m/s'],
-                ['Peak descent', '$[peak_descent]m/s'],
-                ['Start altitude', '$[start_altitude]m'],
-                ['Finish altitude', '$[finish_altitude]m'],
-                ['Start time', '$[start_time]'],
-                ['Finish time', '$[finish_time]'],
-                ['Duration', '$[duration]'],
-                ['Accumulated altitude gain', '$[accumulated_altitude_gain]m'],
-                ['Accumulated altitude loss', '$[accumulated_altitude_loss]m'],
-                ]
+            ['Altitude change', '$[altitude_change]m'],
+            ['Average descent', '$[average_climb]m/s'],
+            ['Maximum descent', '$[maximum_descent]m/s'],
+            ['Peak descent', '$[peak_descent]m/s'],
+            ['Start altitude', '$[start_altitude]m'],
+            ['Finish altitude', '$[finish_altitude]m'],
+            ['Start time', '$[start_time]'],
+            ['Finish time', '$[finish_time]'],
+            ['Duration', '$[duration]'],
+            ['Accumulated altitude gain', '$[accumulated_altitude_gain]m'],
+            ['Accumulated altitude loss', '$[accumulated_altitude_loss]m'],
+        ]
         self.dive_style = self.make_analysis_style('ccff3333', bgcolors, rows)
         bgcolors = '#ccffcc #ddffdd'.split()
         rows = [
-                ['Altitude change', '$[altitude_change]m'],
-                ['Average descent', '$[average_climb]m/s'],
-                ['Distance', '$[distance]km'],
-                ['Average glide ratio', '$[average_ld]:1'],
-                ['Average speed', '$[average_speed]km/h'],
-                ['Start altitude', '$[start_altitude]m'],
-                ['Finish altitude', '$[finish_altitude]m'],
-                ['Start time', '$[start_time]'],
-                ['Finish time', '$[finish_time]'],
-                ['Duration', '$[duration]'],
-                ['Accumulated altitude gain', '$[accumulated_altitude_gain]m'],
-                ['Accumulated altitude loss', '$[accumulated_altitude_loss]m'],
-                ]
+            ['Altitude change', '$[altitude_change]m'],
+            ['Average descent', '$[average_climb]m/s'],
+            ['Distance', '$[distance]km'],
+            ['Average glide ratio', '$[average_ld]:1'],
+            ['Average speed', '$[average_speed]km/h'],
+            ['Start altitude', '$[start_altitude]m'],
+            ['Finish altitude', '$[finish_altitude]m'],
+            ['Start time', '$[start_time]'],
+            ['Finish time', '$[finish_time]'],
+            ['Duration', '$[duration]'],
+            ['Accumulated altitude gain', '$[accumulated_altitude_gain]m'],
+            ['Accumulated altitude loss', '$[accumulated_altitude_loss]m'],
+        ]
         self.kmz.add_roots(self.dive_style)
         self.glide_style = self.make_analysis_style('cc33ff33', bgcolors, rows)
         self.kmz.add_roots(self.glide_style)
@@ -192,7 +191,6 @@ class Stock(object):
 
 
 class Flight(object):
-
     def __init__(self, track, **kwargs):
         self.track = track
         if self.track.elevation_data:
@@ -221,7 +219,7 @@ class Flight(object):
         rows.append(('Take-off time', take_off_time.strftime('%H:%M:%S')))
         landing_time = self.track.bounds.time.max + globals.tz_offset
         rows.append(('Landing time', landing_time.strftime('%H:%M:%S')))
-        duration = (self.track.bounds.time.max 
+        duration = (self.track.bounds.time.max
                     - self.track.bounds.time.min).seconds
         hour, seconds = divmod(duration, 3600)
         minute, second = divmod(seconds, 60)
@@ -460,6 +458,7 @@ class Flight(object):
             else:
                 td = '%.1fkm' % (distance / 1000.0)
             return (th, td)
+
         def make_leg(route, i, j, name=True, arrow=False, style_url=None):
             coord0 = route.tps[i].coord
             coord1 = route.tps[j].coord
@@ -484,6 +483,7 @@ class Flight(object):
             if style_url is None:
                 style_url = globals.stock.xc_style.url()
             return kml.Placemark(name, multi_geometry, styleUrl=style_url)
+
         if not self.xc:
             return kmz.kmz()
         style_url = globals.stock.radio_folder_style.url()
@@ -804,7 +804,7 @@ def flights2kmz(flights, roots=[], tz_offset=0, task=None):
     globals.task = task
     globals.scales = util.OpenStruct()
     globals.scales.altitude = Scale(globals.bounds.ele.tuple(),
-                                    title='altitude', gradient=default_gradient)
+        title='altitude', gradient=default_gradient)
     globals.altitude_styles = []
     for i in range(0, 3):
         altitude_styles = []
@@ -820,21 +820,21 @@ def flights2kmz(flights, roots=[], tz_offset=0, task=None):
         globals.altitude_styles.append(altitude_styles)
     gradient = bilinear_gradient
     globals.scales.climb = ZeroCenteredScale(globals.bounds.climb.tuple(),
-                                             title='climb', step=0.1,
-                                             gradient=gradient)
+        title='climb', step=0.1,
+        gradient=gradient)
     globals.scales.speed = Scale(globals.bounds.speed.tuple(),
-                                 title='ground speed',
-                                 gradient=default_gradient)
+        title='ground speed',
+        gradient=default_gradient)
     globals.scales.time = TimeScale(globals.bounds.time.tuple(),
-                                    tz_offset=globals.tz_offset)
+        tz_offset=globals.tz_offset)
     globals.scales.tec = ZeroCenteredScale(globals.bounds.tec.tuple(),
-                                           title='climb with energy compensation',
-                                           gradient=gradient)
+        title='climb with energy compensation',
+        gradient=gradient)
     globals.scales.t = Scale(globals.bounds.t.tuple(), title='time',
-                             gradient=default_gradient)
+        gradient=default_gradient)
     if hasattr(globals.bounds, 'tas'):
         globals.scales.tas = Scale(globals.bounds.tas.tuple(),
-                                   title='air speed', gradient=default_gradient)
+            title='air speed', gradient=default_gradient)
     globals.graph_width = 600
     globals.graph_height = 300
     globals.default_track = 'solid_color'

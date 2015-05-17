@@ -1,4 +1,4 @@
-#   igc2kmz track functions
+# igc2kmz track functions
 #   Copyright (C) 2008  Tom Payne
 #
 #   This program is free software: you can redistribute it and/or modify
@@ -27,7 +27,6 @@ DIVE = 3
 
 
 class Track(object):
-
     def __init__(self, coords, **kwargs):
         self.coords = Track.filter(coords)
         self.t = [int(time.mktime(c.dt.timetuple())) for c in self.coords]

@@ -1,4 +1,4 @@
-#   igc2kmz coordinate functions
+# igc2kmz coordinate functions
 #   Copyright (C) 2008  Tom Payne
 #
 #   This program is free software: you can redistribute it and/or modify
@@ -29,7 +29,6 @@ def rad_to_cardinal(rad):
 
 
 class degreeattr(object):
-
     def __init__(self, attr):
         self.attr = attr
 
@@ -41,15 +40,14 @@ class degreeattr(object):
 
 
 class degreemethod(object):
-
     def __new__(cls, f):
         def deg_f(*args, **kwargs):
             return 180.0 * f(*args, **kwargs) / pi
+
         return deg_f
 
 
 class Coord(object):
-
     __slots__ = ('lat', 'lon', 'ele', 'dt')
 
     lat_deg = degreeattr('lat')

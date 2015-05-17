@@ -1,4 +1,4 @@
-#   igc2kmz IGC functions
+# igc2kmz IGC functions
 #   Copyright (C) 2008  Tom Payne
 #
 #   This program is free software: you can redistribute it and/or modify
@@ -40,7 +40,6 @@ L_RECORD_RE = re.compile(r'L(.*)\Z')
 
 NOT_SET_RE = re.compile(r'\s*(not\s+set|n/?a)?\s*\Z', re.I)
 
-
 class_by_letter = {}
 
 
@@ -53,7 +52,6 @@ class SyntaxError(Error):
 
 
 class Metaclass(type):
-
     def __new__(cls, name, bases, dct):
         result = type.__new__(cls, name, bases, dct)
         if name != 'Record':
@@ -62,7 +60,6 @@ class Metaclass(type):
 
 
 class Record(object, metaclass=Metaclass):
-
     def __repr__(self):
         return '%s(%s)' % (self.__class__.__name__,
                            ', '.join('%s=%s' % (key, repr(value))
@@ -70,7 +67,6 @@ class Record(object, metaclass=Metaclass):
 
 
 class ARecord(Record):
-
     @classmethod
     def parse(cls, line, igc):
         result = cls()
@@ -83,7 +79,6 @@ class ARecord(Record):
 
 
 class BRecord(Record):
-
     @classmethod
     def parse(cls, line, igc):
         result = cls()
@@ -101,7 +96,7 @@ class BRecord(Record):
         result.dt = datetime.datetime.combine(igc.hfdterecord.date, time)
         if igc.b and result.dt < igc.b[-1].dt:
             igc.hfdterecord.date = datetime.date.fromordinal(
-                    igc.hfdterecord.date.toordinal() + 1)
+                igc.hfdterecord.date.toordinal() + 1)
             result.dt = datetime.datetime.combine(igc.hfdterecord.date, time)
         result.lat = int(m.group(4)) + int(m.group(5)) / 60000.0
         if 'lad' in igc.i:
@@ -121,7 +116,6 @@ class BRecord(Record):
 
 
 class CRecord(Record):
-
     @classmethod
     def parse(cls, line, igc):
         result = cls()
@@ -144,7 +138,6 @@ class CRecord(Record):
 
 
 class ERecord(Record):
-
     @classmethod
     def parse(cls, line, igc):
         result = cls()
@@ -156,7 +149,6 @@ class ERecord(Record):
 
 
 class GRecord(Record):
-
     @classmethod
     def parse(cls, line, igc):
         result = cls()
@@ -169,7 +161,6 @@ class GRecord(Record):
 
 
 class HRecord(Record):
-
     @classmethod
     def parse(cls, line, igc):
         result = cls()
@@ -198,7 +189,6 @@ class HRecord(Record):
 
 
 class IRecord(Record):
-
     @classmethod
     def parse(cls, line, igc):
         result = cls()
@@ -212,7 +202,6 @@ class IRecord(Record):
 
 
 class LRecord(Record):
-
     @classmethod
     def parse(cls, line, igc):
         result = cls()
@@ -224,7 +213,6 @@ class LRecord(Record):
 
 
 class IGC(object):
-
     def __init__(self, file, date=None):
         try:
             self.filename = file.name
@@ -279,4 +267,5 @@ class IGC(object):
 
 if __name__ == '__main__':
     import sys
+
     print(repr(IGC(sys.stdin).__dict__))

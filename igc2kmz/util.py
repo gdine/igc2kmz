@@ -1,4 +1,4 @@
-#   igc2kmz utility functions
+# igc2kmz utility functions
 #   Copyright (C) 2008  Tom Payne
 #
 #   This program is free software: you can redistribute it and/or modify
@@ -23,7 +23,6 @@ import sys
 
 
 class Bounds(object):
-
     def __init__(self, value):
         if isinstance(value, list):
             self.min = value[0]
@@ -59,7 +58,6 @@ class Bounds(object):
 
 
 class BoundsSet(object):
-
     def update(self, other):
         for key, value in list(other.__dict__.items()):
             if hasattr(self, key):
@@ -69,7 +67,6 @@ class BoundsSet(object):
 
 
 class OpenStruct(object):
-
     def __init__(self, **kwargs):
         self.__dict__.update(kwargs)
 
@@ -250,6 +247,7 @@ def salient(seq, epsilon=0):
             helper(start, left)
             helper(left, right)
             helper(right, stop)
+
     result = set()
     if len(seq):
         result.add(0)
@@ -291,6 +289,7 @@ def salient2(seq, epsilons):
             helper(start, left)
             helper(left, right)
             helper(right, stop)
+
     result = {}
     if len(seq):
         result[0] = 0
