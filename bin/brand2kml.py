@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-#   igc2kmz brand generator
+# igc2kmz brand generator
 #   Copyright (C) 2008  Tom Payne
 #
 #   This program is free software: you can redistribute it and/or modify
@@ -59,7 +59,7 @@ def main(argv):
     balloon_style = kml.BalloonStyle(text=kml.CDATA('$[description]'))
     style = kml.Style(balloon_style)
     screen_overlay = kml.ScreenOverlay(icon, overlay_xy, screen_xy, size,
-            snippet, style, name=options.name, description=description)
+                                       snippet, style, name=options.name, description=description)
     output = open(options.output, 'w') if options.output else sys.stdout
     screen_overlay.pretty_write(output)
 

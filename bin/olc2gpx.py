@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-#   olc2002 output to GPX converter
+# olc2002 output to GPX converter
 #   Copyright (C) 2008  Tom Payne
 #
 #   This program is free software: you can redistribute it and/or modify
@@ -26,6 +26,7 @@ from optparse import OptionParser
 import os
 import re
 import sys
+
 try:
     from xml.etree.cElementTree import ElementTree, TreeBuilder
 except ImportError:
@@ -34,7 +35,6 @@ except ImportError:
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
 from igc2kmz.coord import Coord
-from igc2kmz.etree import tag
 from igc2kmz.gpx import gpx_tag
 from igc2kmz.xc import Route, Turnpoint, XC
 
@@ -73,7 +73,7 @@ def main(argv):
         m = DEBUG_DATE_RE.match(line)
         if m:
             day, mon, year = list(map(int, m.groups()))
-            date = datetime.date(year + 2000, mon,day)
+            date = datetime.date(year + 2000, mon, day)
             continue
         m = OUT_TYPE_RE.match(line)
         if m:

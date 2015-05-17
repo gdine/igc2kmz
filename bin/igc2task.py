@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-#   IGC to task converter
+# IGC to task converter
 #   Copyright (C) 2008  Tom Payne
 #
 #   This program is free software: you can redistribute it and/or modify
@@ -24,6 +24,7 @@ from optparse import OptionParser
 import os
 import re
 import sys
+
 try:
     from xml.etree.cElementTree import ElementTree, TreeBuilder
 except ImportError:
@@ -32,7 +33,7 @@ except ImportError:
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
 from igc2kmz.coord import Coord
-from igc2kmz.etree import pretty_write, tag
+from igc2kmz.etree import pretty_write
 from igc2kmz.gpx import gpx_tag
 from igc2kmz.igc import IGC
 from igc2kmz.task import Task, Turnpoint
@@ -50,8 +51,8 @@ def find_nth(function, iterable, n=0):
 
 def main(argv):
     parser = OptionParser(
-            usage='Usage: %prog [options] filename.igc',
-            description='IGC to task converter')
+        usage='Usage: %prog [options] filename.igc',
+        description='IGC to task converter')
     parser.add_option('-o', '--output', metavar='FILENAME',
                       help='set output filename')
     parser.add_option('-n', '--name', metavar='NAME',

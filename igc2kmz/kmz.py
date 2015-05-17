@@ -23,7 +23,7 @@ except ImportError:
     from io import StringIO
 import zipfile
 
-from . import kml
+import kml
 
 
 class kmz(object):

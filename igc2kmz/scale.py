@@ -19,7 +19,7 @@ import datetime
 import itertools
 import time
 
-from . import util
+import util
 
 
 class Scale(object):

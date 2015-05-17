@@ -19,8 +19,8 @@ import datetime
 import struct
 
 
-BIG_ENDIAN, = struct.unpack('=H', 'MM')
-LITTLE_ENDIAN, = struct.unpack('=H', 'II')
+BIG_ENDIAN, = struct.unpack('=H', b'MM')
+LITTLE_ENDIAN, = struct.unpack('=H', b'II')
 BYTE_ORDER_CHAR = {BIG_ENDIAN: '>', LITTLE_ENDIAN: '<'}
 
 BYTE = 1

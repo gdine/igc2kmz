@@ -181,7 +181,7 @@ def incr_douglas_peucker(x, y, epsilon, max_indexes=sys.maxsize):
     return sorted(indexes)
 
 
-def bsearch(seq, value, cmp=builtins.cmp):
+def bsearch(seq, value):
     left, right = 0, len(seq)
     while left <= right:
         middle = (left + right) / 2
@@ -195,11 +195,11 @@ def bsearch(seq, value, cmp=builtins.cmp):
     return None
 
 
-def find_first_ge(seq, value, cmp=builtins.cmp):
+def find_first_ge(seq, value):
     left = 0
     right = len(seq)
     while left < right:
-        middle = (left + right) / 2
+        middle = int((left + right) / 2)
         direction = cmp(value, seq[middle])
         if direction <= 0:
             right = middle
@@ -311,3 +311,6 @@ def datetime_floor(dt, delta):
         return dt - datetime.timedelta(0, dt.second % delta.seconds)
     else:
         return dt
+
+def cmp(a, b):
+    return (a > b) - (a < b)

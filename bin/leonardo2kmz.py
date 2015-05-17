@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-#   igc2kmz IGC to Google Earth converter (Leonardo integration)
+# igc2kmz IGC to Google Earth converter (Leonardo integration)
 #   Copyright (C) 2008  Tom Payne
 #
 #   This program is free software: you can redistribute it and/or modify
@@ -23,7 +23,8 @@ from math import sqrt
 import re
 import sys
 
-from sqlalchemy import create_engine, MetaData, Table
+from sqlalchemy import MetaData, Table
+
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
@@ -45,12 +46,12 @@ DEFAULT_PHOTOS_URL = '/modules/leonardo/data/flights/photos/%YEAR%/%PILOTID%'
 
 LEAGUE = (None, 'Online Contest', 'World XC Online Contest')
 ROUTE_NAME = (
-        None,
-        'free flight',
-        'free triangle',
-        'FAI triangle',
-        'free flight without turnpoints',
-        'maximum distance from take-off')
+    None,
+    'free flight',
+    'free triangle',
+    'FAI triangle',
+    'free flight without turnpoints',
+    'maximum distance from take-off')
 CIRCUIT = (None, False, True, True, False, False)
 
 SHOW_FLIGHT_URL = '/modules.php?name=leonardo&op=show_flight&flightID=%(ID)d'
@@ -120,8 +121,8 @@ def make_takeoff_placemark(takeoff_row):
 
 def main(argv):
     parser = optparse.OptionParser(
-            usage='Usage: %prog [options] flightID',
-            description='IGC to Google Earth converter (Leonardo integration)')
+        usage='Usage: %prog [options] flightID',
+        description='IGC to Google Earth converter (Leonardo integration)')
     parser.add_option('-o', '--output', metavar='FILENAME',
                       help='set output filename')
     parser.add_option('-n', '--name', metavar='STRING')
@@ -183,9 +184,9 @@ def main(argv):
         else:
             pilot_id = flight_row.userID
         substitutions = {
-                'PILOTID': str(pilot_id),
-                'YEAR': str(flight_row.DATE.year),
-                }
+            'PILOTID': str(pilot_id),
+            'YEAR': str(flight_row.DATE.year),
+        }
         igc_path = os.path.join(options.directory,
                                 substitute(options.igc_path, substitutions),
                                 flight_row.filename + options.igc_suffix)
@@ -195,9 +196,9 @@ def main(argv):
         flight.url = options.url + SHOW_FLIGHT_URL % flight_row
         #
         select = pilots_table.select((pilots_table.c.pilotID
-                                     == flight_row.userID) &
+                                      == flight_row.userID) &
                                      (pilots_table.c.serverID
-                                     == flight_row.userServerID))
+                                      == flight_row.userServerID))
         pilot_row = select.execute().fetchone()
         if pilot_row is None:
             raise KeyError('(%(userID)s, %(userServerID)s)' % flight_row)
@@ -241,8 +242,8 @@ def main(argv):
                                          == flight_row.ID)
             for photo_row in select.execute().fetchall():
                 photo_url = options.url \
-                        + substitute(options.photos_url, substitutions) \
-                        + '/' + photo_row.name
+                            + substitute(options.photos_url, substitutions) \
+                            + '/' + photo_row.name
                 photo_path = os.path.join(options.directory,
                                           substitute(options.photos_path, substitutions),
                                           photo_row.name)
@@ -261,6 +262,7 @@ def main(argv):
     #
     kmz = flights2kmz(flights, roots=roots, tz_offset=options.tz_offset)
     kmz.write(options.output, '2.2')
+
 
 if __name__ == '__main__':
     main(sys.argv)

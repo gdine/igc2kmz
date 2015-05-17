@@ -24,14 +24,16 @@ import re
 import unicodedata
 import urllib.parse
 
-from . import third_party.pygooglechart as pygooglechart
+from google_chart_api_wrapper import pygooglechart
 
-from .color import bilinear_gradient, default_gradient
-from .coord import rad_to_cardinal
-from . import kml
-from . import kmz
-from .scale import Scale, TimeScale, ZeroCenteredScale
-from . import util
+from color import bilinear_gradient, default_gradient
+from coord import rad_to_cardinal
+import kml
+import kmz
+from scale import Scale, TimeScale, ZeroCenteredScale
+import util
+
+CURRENT_DIR = os.path.dirname(__file__)
 
 
 if 0:
@@ -182,8 +184,8 @@ class Stock(object):
                                    line_style)
         self.kmz.add_roots(self.xc_style2)
         #
-        self.pixel_url = os.path.join('images', 'pixel.png')
-        pixel = open(os.path.join(BASE_DIR, self.pixel_url)).read()
+        self.pixel_url = os.path.join(CURRENT_DIR, 'pixel.png')
+        pixel = open(os.path.join(BASE_DIR, self.pixel_url), mode='rb').read()
         self.kmz.add_files({self.pixel_url: pixel})
         #
         self.visible_none_folder = self.make_none_folder(1)
