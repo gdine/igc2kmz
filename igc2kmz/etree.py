@@ -31,7 +31,7 @@ class tag(object):
 
 
 def pretty_write(io, element, indent='\t', prefix=''):
-    attrs = ''.join(' %s="%s"' % item for item in element.items())
+    attrs = ''.join(' %s="%s"' % item for item in list(element.items()))
     children = element.getchildren()
     if children:
         io.write('%s<%s%s>\n' % (prefix, element.tag, attrs))

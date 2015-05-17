@@ -30,9 +30,8 @@ class Metaclass(type):
         return result
 
 
-class _Element(object):
+class _Element(object, metaclass=Metaclass):
     """KML element base class."""
-    __metaclass__ = Metaclass
 
     def name(self):
         """Return name."""
@@ -69,7 +68,7 @@ class _SimpleElement(_Element):
 
     def __str__(self):
         """Return the KML representation of self."""
-        attrs = ''.join(' %s="%s"' % pair for pair in self.attrs.items())
+        attrs = ''.join(' %s="%s"' % pair for pair in list(self.attrs.items()))
         if self.text is None:
             return '<%s%s/>' % (self.name(), attrs)
         else:
@@ -92,12 +91,12 @@ class _CompoundElement(_Element):
     def add(self, *args, **kwargs):
         """Add children."""
         self.children.extend(list(arg for arg in args if not arg is None))
-        for key, value in kwargs.items():
+        for key, value in list(kwargs.items()):
             self.children.append(class_by_name[key](value))
 
     def write(self, file):
         """Write self to file."""
-        attrs = ''.join(' %s="%s"' % pair for pair in self.attrs.items())
+        attrs = ''.join(' %s="%s"' % pair for pair in list(self.attrs.items()))
         if self.children:
             file.write('<%s%s>' % (self.name(), attrs))
             for child in self.children:
@@ -108,7 +107,7 @@ class _CompoundElement(_Element):
 
     def pretty_write(self, file, indent='\t', prefix=''):
         """Write self to file."""
-        attrs = ''.join(' %s="%s"' % pair for pair in self.attrs.items())
+        attrs = ''.join(' %s="%s"' % pair for pair in list(self.attrs.items()))
         if self.children:
             file.write('%s<%s%s>\n' % (prefix, self.name(), attrs))
             for child in self.children:
@@ -119,7 +118,7 @@ class _CompoundElement(_Element):
 
     def __str__(self):
         """Return the KML representation of self."""
-        attrs = ''.join(' %s="%s"' % pair for pair in self.attrs.items())
+        attrs = ''.join(' %s="%s"' % pair for pair in list(self.attrs.items()))
         if self.children:
             return '<%s%s>%s</%s>' % (self.name(), attrs,
                                       ''.join(map(str, self.children)),
@@ -187,7 +186,7 @@ class coordinates(_SimpleElement):
     def circle(cls, center, radius, ele=None, error=0.1):
         decimation = int(ceil(pi / acos((radius - error) / (radius + error))))
         coords = []
-        for i in xrange(0, decimation + 1):
+        for i in range(0, decimation + 1):
             coord = center.coord_at(-2.0 * pi * i / decimation, radius + error)
             if ele:
                 coord.ele = ele
@@ -228,7 +227,7 @@ class ExtendedData(_CompoundElement):
 
     @classmethod
     def dict(cls, dict):
-        return cls(*[Data(key, value=value) for key, value in dict.items()])
+        return cls(*[Data(key, value=value) for key, value in list(dict.items())])
 
 
 class extrude(_SimpleElement): pass
@@ -327,4 +326,4 @@ class when(_SimpleElement): pass
 class width(_SimpleElement): pass
 
 
-__all__ = class_by_name.keys()
+__all__ = list(class_by_name.keys())

@@ -15,7 +15,7 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-from __future__ import with_statement
+
 
 import datetime
 import re
@@ -24,9 +24,9 @@ try:
 except ImportError:
     from xml.etree.ElementTree import ElementTree, TreeBuilder, parse
 
-from coord import Coord
-from etree import tag
-from gpx import GPX_DATETIME_FORMAT
+from .coord import Coord
+from .etree import tag
+from .gpx import GPX_DATETIME_FORMAT
 
 
 class Turnpoint(object):

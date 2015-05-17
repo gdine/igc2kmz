@@ -17,7 +17,7 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-from __future__ import with_statement
+
 
 import datetime
 import fileinput
@@ -72,7 +72,7 @@ def main(argv):
         line = line.rstrip()
         m = DEBUG_DATE_RE.match(line)
         if m:
-            day, mon, year = map(int, m.groups())
+            day, mon, year = list(map(int, m.groups()))
             date = datetime.date(year + 2000, mon,day)
             continue
         m = OUT_TYPE_RE.match(line)
@@ -101,7 +101,7 @@ def main(argv):
             lon = int(m.group(8)) + float(m.group(9)) / 60.0
             if m.group(7) == 'W':
                 lon = -lon
-            time = datetime.time(*map(int, m.group(1, 2, 3)))
+            time = datetime.time(*list(map(int, m.group(1, 2, 3))))
             if not last_time is None and time < last_time:
                 date += datetime.timedelta(1)
             dt = datetime.datetime.combine(date, time)

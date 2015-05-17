@@ -17,7 +17,7 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-from __future__ import with_statement
+
 
 from datetime import timedelta
 from optparse import OptionParser
@@ -121,7 +121,7 @@ def main(argv):
         m = re.match(r'(\d+):(\d\d)\Z', options.start_time)
         if not m:
             parser.error('invalid start time %s' % repr(options.start_time))
-        hour, minute = map(int, m.group(1, 2))
+        hour, minute = list(map(int, m.group(1, 2)))
         start.coord.dt = igc.b[0].dt.replace(hour=hour,
                                              minute=minute,
                                              second=0) \

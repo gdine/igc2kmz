@@ -61,7 +61,7 @@ B_RECORD_RE = re.compile(r'B(\d{2})(\d{2})(\d{2})'
 
 
 def substitute(s, dict):
-    for key, value in dict.items():
+    for key, value in list(dict.items()):
         s = re.sub('%%%s%%' % re.escape(key), value, s)
     return s
 
@@ -177,7 +177,7 @@ def main(argv):
         select = flights_table.select(flights_table.c.ID == int(flightID))
         flight_row = select.execute().fetchone()
         if flight_row is None:
-            raise KeyError, id
+            raise KeyError(id)
         if flight_row.userServerID:
             pilot_id = '%(userServerID)d_%(userID)d' % flight_row
         else:
@@ -200,7 +200,7 @@ def main(argv):
                                      == flight_row.userServerID))
         pilot_row = select.execute().fetchone()
         if pilot_row is None:
-            raise KeyError, '(%(userID)s, %(userServerID)s)' % flight_row
+            raise KeyError('(%(userID)s, %(userServerID)s)' % flight_row)
         flight.pilot_name = '%(FirstName)s %(LastName)s' % pilot_row
         #
         routes = []
@@ -214,11 +214,11 @@ def main(argv):
             multiplier = round(score / distance, 2)
             circuit = CIRCUIT[flight_score_row.type]
             tps = []
-            for i in xrange(1, 8):
+            for i in range(1, 8):
                 m = B_RECORD_RE.match(flight_score_row['turnpoint%d' % i])
                 if not m:
                     continue
-                time = datetime.time(*map(int, m.group(1, 2, 3)))
+                time = datetime.time(*list(map(int, m.group(1, 2, 3))))
                 dt = datetime.datetime.combine(flight_row.DATE, time)
                 lat = int(m.group(4)) + int(m.group(5)) / 60000.0
                 if m.group(6) == 'S':

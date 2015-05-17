@@ -20,8 +20,8 @@
 import os
 import pprint
 import sys
-import urllib2
-import urlparse
+import urllib.request, urllib.error, urllib.parse
+import urllib.parse
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
@@ -31,19 +31,19 @@ import igc2kmz.exif
 def main(argv):
     for arg in argv[1:]:
         try:
-            if urlparse.urlparse(arg).scheme:
+            if urllib.parse.urlparse(arg).scheme:
                 url = arg
             else:
                 url = 'file://' + os.path.realpath(arg)
-            jpeg = igc2kmz.exif.JPEG(urllib2.urlopen(url))
-            for tag, value in jpeg.exif.items():
+            jpeg = igc2kmz.exif.JPEG(urllib.request.urlopen(url))
+            for tag, value in list(jpeg.exif.items()):
                 if tag == 'UserComment':
                     jpeg.exif[tag] = igc2kmz.exif.parse_usercomment(value)
                 elif isinstance(tag, str) and tag.startswith('DateTime'):
                     jpeg.exif[tag] = igc2kmz.exif.parse_datetime(value)
             pprint.pprint(jpeg.__dict__)
-        except igc2kmz.exif.SyntaxError, line:
-            print "%s: %s" % (arg, line)
+        except igc2kmz.exif.SyntaxError as line:
+            print("%s: %s" % (arg, line))
 
 
 if __name__ == '__main__':
